@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import '../services/api/cartgory.dart';
 
-class CatePage extends StatelessWidget {
-  const CatePage({Key key}) : super(key: key);
+class CategoryPage extends StatefulWidget {
+  CategoryPage({Key key}) : super(key: key);
 
   @override
+  _CategoryPageState createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('分类'),
-      // ),
-      body: Center(
-        child: Text('CatePage')
-      ),
+    return Container(
+       child: Text('CategoryPage'),
     );
   }
 }

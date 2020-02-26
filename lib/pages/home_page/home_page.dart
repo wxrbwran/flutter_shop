@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../components/swiper.dart';
 import '../../services/api/home.dart';
-
 import './components/recommend.dart';
 import './components/floor.dart';
 import './components/ad_banner.dart';
@@ -23,12 +25,31 @@ class _HomePageState extends State<HomePage>
   @override
   bool get wantKeepAlive => true;
 
+  EasyRefreshController _controller;
   String homePageContent = '正在获取数据';
-
+  int page = 1;
+  List<Map> hotGoodsList = [];
+  bool noMore = false;
   @override
   void initState() {
     super.initState();
+    _controller = EasyRefreshController();
     // print('==========>1111111');
+  }
+
+  void _getHotGoods() {
+    // var formPage = {'page': page};
+    HomeApi().getHomePageBelow(page: page).then((value) {
+      var data = json.decode(value.toString());
+      List<Map> newGoodsList = (data['data']['info'] as List).cast();
+      this.setState(() {
+        hotGoodsList.addAll(newGoodsList);
+        page++;
+        if (newGoodsList.length < 10) {
+          noMore = true;
+        }
+      });
+    });
   }
 
   @override
@@ -60,23 +81,40 @@ class _HomePageState extends State<HomePage>
             String floor1Image2 = (data['data']['floor1']['image2']);
             String floor1Image3 = (data['data']['floor1']['image3']);
             String floor1Image4 = (data['data']['floor1']['image4']);
-            List<String> floorList = [floor1Image0, floor1Image1, floor1Image2,
-              floor1Image3, floor1Image4];
-            // Map floor1 = json.decode(data['data']['floor1']);
-
-            return SingleChildScrollView(
-                child: Column(children: <Widget>[
-              SwiperDIY(swiperList: swiper),
-              TopNavigator(navList: nav),
-              AdBanner(adPicUrl: adPicUrl),
-              LeaderPhone(avatar: avatar, phone: phone),
-              Recommend(
-                recommendList: recommend,
-              ),
-              FloorTitle(pic: floor1Title),
-              FloorContent(floorList: floorList),
-              HotGoods(),
-            ]));
+            List<String> floorList = [
+              floor1Image0,
+              floor1Image1,
+              floor1Image2,
+              floor1Image3,
+              floor1Image4
+            ];
+            return EasyRefresh(
+              header: MaterialHeader(),
+              footer: MaterialFooter(),
+              controller: _controller,
+              child: ListView(children: <Widget>[
+                SwiperDIY(swiperList: swiper),
+                TopNavigator(navList: nav),
+                AdBanner(adPicUrl: adPicUrl),
+                LeaderPhone(avatar: avatar, phone: phone),
+                Recommend(
+                  recommendList: recommend,
+                ),
+                FloorTitle(pic: floor1Title),
+                FloorContent(floorList: floorList),
+                HotGoods(hotGoodsList: hotGoodsList),
+              ]),
+              onLoad: () async {
+                // 上拉加载更多
+                print('onLoad.......');
+                _getHotGoods();
+                _controller.finishLoad(noMore: false);
+              },
+              onRefresh: () async {
+                // 下拉刷新
+                print('onRefresh.......');
+              },
+            );
           } else {
             return Center(
                 child: Text(homePageContent,
@@ -84,7 +122,6 @@ class _HomePageState extends State<HomePage>
                       fontSize: ScreenUtil().setSp(28),
                     )));
           }
-        }
-      );
+        });
   }
 }

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import '../services/api/cartgory.dart';
 
-class CartPage extends StatelessWidget {
-  const CartPage({Key key}) : super(key: key);
+class CartPage extends StatefulWidget {
+  CartPage({Key key}) : super(key: key);
 
   @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('购物车'),
-      // ),
-      body: Center(
-        child: Text('CartPage')
-      ),
+    return Container(
+       child: Text('CartPage'),
     );
   }
 }
