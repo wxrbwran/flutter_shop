@@ -25,7 +25,7 @@ class _IndexPageState extends State<IndexPage> {
         icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
   ];
 
-  final List tabBodies = [HomePage(), CatePage(), CartPage(), MemberPage()];
+  final List<Widget> tabBodies = [HomePage(), CatePage(), CartPage(), MemberPage()];
   int currentIndex = 0;
   var currentPage;
   @override
@@ -58,7 +58,10 @@ class _IndexPageState extends State<IndexPage> {
       appBar: AppBar(
         title: Text('百姓生活+'),
       ),
-      body: currentPage,
+      body: IndexedStack(
+        index: currentIndex,
+        children: tabBodies,
+      ),
     );
   }
 }

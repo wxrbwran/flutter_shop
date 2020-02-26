@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../components/swiper.dart';
-import './components/recommend.dart';
 import '../../services/api/home.dart';
+
+import './components/recommend.dart';
+import './components/floor.dart';
+import './components/ad_banner.dart';
+import './components/top_navigator.dart';
+import './components/leader_phone.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -13,8 +17,18 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   String homePageContent = '正在获取数据';
+
+  @override
+  void initState() {
+    super.initState();
+    // print('==========>1111111');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +40,41 @@ class _HomePageState extends State<HomePage> {
         future: HomeApi().getHomePageSwiper(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
+            print(snapshot.data.runtimeType);
             var data = json.decode(snapshot.data.toString());
             print('FutureBuilder');
-            print(data);
+            print(Map.from(data['data']['floor1']));
+            // print(data);
             // as运算符类似于Java中的cast操作，将一个对象强制类型转换
             List<Map> swiper = (data['data']['slides'] as List).cast();
             List<Map> nav = (data['data']['category'] as List).cast();
             String adPicUrl = data['data']['adPicUrl'];
             String avatar = (data['data']['shopInfo']['avatar']);
             String phone = (data['data']['shopInfo']['phone']);
-            print(data['data']['recommend']);
+            // print(data['data']['recommend']);
             List<Map> recommend = (data['data']['recommend'] as List).cast();
+            String floor1Title = (data['data']['floor1Pic']['pic']);
+            String floor1Image0 = (data['data']['floor1']['image0']);
+            String floor1Image1 = (data['data']['floor1']['image1']);
+            String floor1Image2 = (data['data']['floor1']['image2']);
+            String floor1Image3 = (data['data']['floor1']['image3']);
+            String floor1Image4 = (data['data']['floor1']['image4']);
+            List<String> floorList = [floor1Image0, floor1Image1, floor1Image2,
+              floor1Image3, floor1Image4];
+            // Map floor1 = json.decode(data['data']['floor1']);
 
             return SingleChildScrollView(
-              child: Column(children: <Widget>[
-                SwiperDIY(swiperList: swiper),
-                TopNavigator(navList: nav),
-                AdBanner(adPicUrl: adPicUrl),
-                LeaderPhone(avatar: avatar, phone: phone),
-                Recommend(
-                  recommendList: recommend,
-                ),
-              ]
-            )
-          );
+                child: Column(children: <Widget>[
+              SwiperDIY(swiperList: swiper),
+              TopNavigator(navList: nav),
+              AdBanner(adPicUrl: adPicUrl),
+              LeaderPhone(avatar: avatar, phone: phone),
+              Recommend(
+                recommendList: recommend,
+              ),
+              FloorTitle(pic: floor1Title),
+              FloorContent(floorList: floorList)
+            ]));
           } else {
             return Center(
                 child: Text(homePageContent,
@@ -58,110 +83,5 @@ class _HomePageState extends State<HomePage> {
                     )));
           }
         });
-  }
-}
-
-class TopNavigator extends StatelessWidget {
-  final List navList;
-  const TopNavigator({Key key, this.navList}) : super(key: key);
-
-  Widget _gridViewItemUI(BuildContext context, item) {
-    return InkWell(
-      onTap: () {
-        print('点击了导航');
-      },
-      child: Column(
-        children: <Widget>[
-          Image.network(item['image'], width: ScreenUtil().setWidth(95)),
-          Text(item['mallCategroyName'])
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: ScreenUtil().setHeight(250),
-      padding: EdgeInsets.all(3),
-      child: GridView.count(
-        crossAxisCount: 5,
-        padding: EdgeInsets.all(5),
-        children: navList.map((nav) {
-          return _gridViewItemUI(context, nav);
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class AdBanner extends StatelessWidget {
-  final String adPicUrl;
-  const AdBanner({Key key, this.adPicUrl}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.white,
-      decoration: BoxDecoration(
-        color: Colors.white
-      ),
-      width: ScreenUtil().setWidth(750),
-      child: Image.network(this.adPicUrl, fit: BoxFit.fitWidth
-          // width: ScreenUtil().setWidth(750)
-          ),
-    );
-  }
-}
-
-class LeaderPhone extends StatelessWidget {
-  final String avatar;
-  final String phone;
-  const LeaderPhone({Key key, this.avatar, this.phone}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    void _launchUrl() async {
-      // String tel = 'tel:+1 850 534 988';
-      String url = 'https://github.com/Solido/awesome-flutter';
-      print('_launchUrl url');
-      print(url);
-      if (await canLaunch(url)) {
-        launch(url);
-      } else {
-        throw '不能访问！';
-      }
-    }
-
-    return Container(
-      child: InkWell(
-        onTap: _launchUrl,
-        child: Container(
-            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Row(
-              children: <Widget>[
-                Image.network(avatar),
-                Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    decoration: BoxDecoration(
-                      // border: Border.all(color: Colors.redAccent, width: 1, style: BorderStyle.solid),
-                      border: Border(
-                          bottom: BorderSide(
-                        color: Colors.redAccent,
-                        width: 3,
-                        style: BorderStyle.solid,
-                      )),
-                    ),
-                    child: Text(
-                      'LinkTo: awesome flutter',
-                      style: TextStyle(
-                        color: Colors.purpleAccent,
-                        fontSize: ScreenUtil().setSp(50),
-                      ),
-                    ))
-              ],
-            )),
-      ),
-    );
   }
 }
