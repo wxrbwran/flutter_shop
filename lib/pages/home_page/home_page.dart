@@ -9,6 +9,7 @@ import './components/floor.dart';
 import './components/ad_banner.dart';
 import './components/top_navigator.dart';
 import './components/leader_phone.dart';
+import './components/hot_goods.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -42,8 +43,8 @@ class _HomePageState extends State<HomePage>
           if (snapshot.hasData) {
             print(snapshot.data.runtimeType);
             var data = json.decode(snapshot.data.toString());
-            print('FutureBuilder');
-            print(Map.from(data['data']['floor1']));
+            // print('FutureBuilder');
+            // print(Map.from(data['data']['floor1']));
             // print(data);
             // as运算符类似于Java中的cast操作，将一个对象强制类型转换
             List<Map> swiper = (data['data']['slides'] as List).cast();
@@ -73,7 +74,8 @@ class _HomePageState extends State<HomePage>
                 recommendList: recommend,
               ),
               FloorTitle(pic: floor1Title),
-              FloorContent(floorList: floorList)
+              FloorContent(floorList: floorList),
+              HotGoods(),
             ]));
           } else {
             return Center(
@@ -82,6 +84,7 @@ class _HomePageState extends State<HomePage>
                       fontSize: ScreenUtil().setSp(28),
                     )));
           }
-        });
+        }
+      );
   }
 }

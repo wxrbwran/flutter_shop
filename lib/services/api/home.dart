@@ -7,7 +7,6 @@ class HomeApiConfigs {
   static String homePageSwiper = '/homePageSwiper';
   // 商城热卖商品
   static String homePageBelowContent = '/homePageBelowContent';
-
 }
 
 class HomeApi {
@@ -31,7 +30,7 @@ class HomeApi {
 
   // 获取首页主体部分
   Future getHomePageContent() async {
-    var data = {'lon': '111.2131', 'lat': '35.1231'};
+    Map data = {'lon': '111.2131', 'lat': '35.1231'};
     Response response =
         await _http.get(HomeApiConfigs.homePageContent, data: data);
     return response;
@@ -43,9 +42,10 @@ class HomeApi {
   }
 
   // 获取火爆专区
-  Future getHomePageBelow() async {
-    int page = 1;
-    Response response = await _http.get(HomeApiConfigs.homePageBelowContent, data: page);
+  Future getHomePageBelow({page: 1}) async {
+    // int page = 1;
+    var data = { 'page': page };
+    Response response = await _http.get(HomeApiConfigs.homePageBelowContent, data: data);
     return response;
   }
 }
