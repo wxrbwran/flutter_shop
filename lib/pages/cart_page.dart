@@ -25,6 +25,7 @@ class _CartPageState extends State<CartPage> {
       ),
       body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('${translations.title}'),
               // // 使用方法2

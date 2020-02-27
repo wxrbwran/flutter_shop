@@ -11,9 +11,6 @@ import './provider/translations.dart';
 // 易测性/可组合性，provider可以很方便地模拟或者复写数据
 // 鲁棒性，provider会在合适的时候更新组件或者模型的状态，降低错误率
 void main() {
-  // final counter = Counter();
-  // final textSize = 48;
-
   runApp(MultiProvider(
     providers: [
       // Exposing a new object instance 
@@ -24,9 +21,6 @@ void main() {
       ProxyProvider<Counter, Translations>(
         update: (_, counter, __) => Translations(counter.value),
       ),
-      // ChangeNotifierProxyProvider<Counter, Translations>(
-      //   create: (_, counter, __) => Translations(counter.value),
-      // ),
       // Reusing an existing object instance:
       // 如上正相反
     ],
