@@ -11,4 +11,10 @@ class CategoryGoodsListProvider with ChangeNotifier {
     _goodsList = list;
     notifyListeners();
   }
+
+  // 下拉加载商品列表
+  addGoodsList(List<CategoryListData> list) {
+    _goodsList.addAll(list);
+    notifyListeners();
+  }
 }

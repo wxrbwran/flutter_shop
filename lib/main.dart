@@ -20,7 +20,7 @@ void main() {
       // ChangeNotifierProvider.value(value: Counter()),
       // 注册方法2 DO
       ChangeNotifierProvider<Counter>(create: (_) => Counter()),
-      ChangeNotifierProvider<ChildCategory>(create: (_) => ChildCategory()),
+      ChangeNotifierProvider<ChildCategoryProvider>(create: (_) => ChildCategoryProvider()),
       ChangeNotifierProvider<CategoryGoodsListProvider>(create: (_) => CategoryGoodsListProvider()),
       ProxyProvider<Counter, Translations>(
         update: (_, counter, __) => Translations(counter.value),
