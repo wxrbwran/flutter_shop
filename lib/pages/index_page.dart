@@ -55,9 +55,6 @@ class _IndexPageState extends State<IndexPage> {
           });
         },
       ),
-      appBar: AppBar(
-        title: Text('百姓生活+'),
-      ),
       body: IndexedStack(
         index: currentIndex,
         children: tabBodies,

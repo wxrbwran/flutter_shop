@@ -18,7 +18,7 @@ class CateApi {
     return _instance;
   }
 
-  Future getHomePageSwiper() async {
+  Future getCategory() async {
     Response response = await _http.get(CateApiConfigs.getCategory);
     return response;
   }

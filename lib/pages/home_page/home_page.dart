@@ -58,7 +58,11 @@ class _HomePageState extends State<HomePage>
     print('设备高: ${ScreenUtil.screenHeight}');
     print('设备宽: ${ScreenUtil.screenWidth}');
 
-    return FutureBuilder(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('百姓生活'),
+      ),
+      body: FutureBuilder(
         future: HomeApi().getHomePageSwiper(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
@@ -122,6 +126,7 @@ class _HomePageState extends State<HomePage>
                       fontSize: ScreenUtil().setSp(28),
                     )));
           }
-        });
+        })
+    );
   }
 }
