@@ -2,7 +2,10 @@ import 'package:dio/dio.dart';
 import '../httpUtil.dart';
 
 class CateApiConfigs {
+  // 商品分类信息
   static String getCategory = '/getCategory';
+  // 商品分类的商品列表
+  static String getMallGoods = '/getMallGoods';
 }
 
 class CateApi {
@@ -23,11 +26,8 @@ class CateApi {
     return response;
   }
 
-  // // 获取火爆专区
-  // Future getHomePageBelow({page: 1}) async {
-  //   // int page = 1;
-  //   var data = { 'page': page };
-  //   Response response = await _http.get(CateApiConfigs.homePageBelowContent, data: data);
-  //   return response;
-  // }
+  Future getMallGoods(data) async {
+    Response response = await _http.get(CateApiConfigs.getMallGoods, data: data);
+    return response;
+  }
 }

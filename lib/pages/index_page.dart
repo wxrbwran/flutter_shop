@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/app.dart';
 import './home_page/home_page.dart';
-import './cate_page.dart';
+import './category_page/category_page.dart';
 import './cart_page.dart';
 import './member_page.dart';
 

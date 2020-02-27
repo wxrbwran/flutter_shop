@@ -34,6 +34,7 @@ class _CartPageState extends State<CartPage> {
               // Text('${counter.value}'),
               RaisedButton(
                 onPressed: () {
+                  // 不需要监听改变（listen: false 不会重新调用build）
                   Provider.of<Counter>(context, listen: false).increment();
                 },
                 child: Text('plus++++++'),

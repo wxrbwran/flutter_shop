@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import './pages/index_page.dart';
 import './provider/counter.dart';
 import './provider/translations.dart';
+import './provider/category_goods_list.dart';
+import './provider/child_category.dart';
 
 // provider有以下三个特点：
 
@@ -18,6 +20,8 @@ void main() {
       // ChangeNotifierProvider.value(value: Counter()),
       // 注册方法2 DO
       ChangeNotifierProvider<Counter>(create: (_) => Counter()),
+      ChangeNotifierProvider<ChildCategory>(create: (_) => ChildCategory()),
+      ChangeNotifierProvider<CategoryGoodsListProvider>(create: (_) => CategoryGoodsListProvider()),
       ProxyProvider<Counter, Translations>(
         update: (_, counter, __) => Translations(counter.value),
       ),
