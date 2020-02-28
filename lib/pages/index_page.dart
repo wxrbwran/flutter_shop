@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/app.dart';
 import './home_page/home_page.dart';
-import './cate_page.dart';
+import './category_page/category_page.dart';
 import './cart_page.dart';
 import './member_page.dart';
 
@@ -25,7 +25,7 @@ class _IndexPageState extends State<IndexPage> {
         icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
   ];
 
-  final List<Widget> tabBodies = [HomePage(), CatePage(), CartPage(), MemberPage()];
+  final List<Widget> tabBodies = [HomePage(), CategoryPage(), CartPage(), MemberPage()];
   int currentIndex = 0;
   var currentPage;
   @override
@@ -54,9 +54,6 @@ class _IndexPageState extends State<IndexPage> {
             currentPage = tabBodies[index];
           });
         },
-      ),
-      appBar: AppBar(
-        title: Text('百姓生活+'),
       ),
       body: IndexedStack(
         index: currentIndex,

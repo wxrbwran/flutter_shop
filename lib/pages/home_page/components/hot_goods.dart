@@ -1,46 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'dart:convert';
-import '../../../services/api/home.dart';
+import '../../../routes/application.dart';
 
-class HotGoods extends StatefulWidget {
-  HotGoods({Key key}) : super(key: key);
-
-  @override
-  _HotGoodsState createState() => _HotGoodsState();
-}
-
-class _HotGoodsState extends State<HotGoods> {
-  int page = 1;
-  List<Map> hotGoodsList = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    // HomeApi().getHomePageBelow(page: page).then((value) {
-    //   var data = json.decode(value.toString());
-    //   List<Map> newGoodsList = (data['data']['info'] as List).cast();
-    //   this.setState(() {
-    //     hotGoodsList.addAll(newGoodsList);
-    //     page++;
-    //   });
-    // });
-    _getHotGoods();
-    super.initState();
-  }
-
-  void _getHotGoods() {
-    // var formPage = {'page': page};
-    HomeApi().getHomePageBelow(page: page).then((value) {
-      var data = json.decode(value.toString());
-      List<Map> newGoodsList = (data['data']['info'] as List).cast();
-      this.setState(() {
-        hotGoodsList.addAll(newGoodsList);
-        page++;
-      });
-    });
-  }
+class HotGoods extends StatelessWidget {
+  List hotGoodsList;
+  HotGoods({Key key, this.hotGoodsList}) : super(key: key);
 
   Widget hotTitle = Container(
     margin: EdgeInsets.only(top: 10),
@@ -50,12 +14,16 @@ class _HotGoodsState extends State<HotGoods> {
     child: Text('火爆专区'),
   );
 
-  Widget _wrapList() {
+  Widget _wrapList(context) {
     int length = hotGoodsList.length;
     if (length != 0) {
       List<Widget> listWidget = hotGoodsList.map((val) {
         return InkWell(
-            onTap: () {},
+            onTap: () {
+               Application.router.navigateTo(context,"/detail?id=${val['goodsId']}");
+              // Application.router
+              //     .navigateTo(context, 'detail?id=${val['goodsId']}');
+            },
             child: Container(
               width: ScreenUtil().setWidth(370),
               color: Colors.white,
@@ -71,7 +39,7 @@ class _HotGoodsState extends State<HotGoods> {
                       fontSize: ScreenUtil().setSp(26),
                     )),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween ,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('¥${val['mallPrice']}'),
                     Text('¥${val['price']}',
@@ -100,7 +68,7 @@ class _HotGoodsState extends State<HotGoods> {
     return Container(
       child: Container(
         child: Column(
-          children: <Widget>[hotTitle, _wrapList()],
+          children: <Widget>[hotTitle, _wrapList(context)],
         ),
       ),
     );

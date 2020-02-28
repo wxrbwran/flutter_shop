@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import '../httputil.dart';
-import '../../entity/home_banner.dart';
-import '../../entity/home_article.dart';
+import '../../model/home_banner.dart';
+import '../../model/home_article.dart';
 
 class TestApiConfigs {
   // static const _baseUrl = 'https://www.wanandroid.com';
