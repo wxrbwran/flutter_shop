@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../routes/application.dart';
 
 class HotGoods extends StatelessWidget {
   List hotGoodsList;
@@ -13,12 +14,16 @@ class HotGoods extends StatelessWidget {
     child: Text('火爆专区'),
   );
 
-  Widget _wrapList() {
+  Widget _wrapList(context) {
     int length = hotGoodsList.length;
     if (length != 0) {
       List<Widget> listWidget = hotGoodsList.map((val) {
         return InkWell(
-            onTap: () {},
+            onTap: () {
+               Application.router.navigateTo(context,"/detail?id=${val['goodsId']}");
+              // Application.router
+              //     .navigateTo(context, 'detail?id=${val['goodsId']}');
+            },
             child: Container(
               width: ScreenUtil().setWidth(370),
               color: Colors.white,
@@ -63,7 +68,7 @@ class HotGoods extends StatelessWidget {
     return Container(
       child: Container(
         child: Column(
-          children: <Widget>[hotTitle, _wrapList()],
+          children: <Widget>[hotTitle, _wrapList(context)],
         ),
       ),
     );

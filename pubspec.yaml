@@ -37,7 +37,7 @@ dependencies: # 生产环境需要使用的库
   # https://github.com/PonnamKarthik/FlutterToast
   fluttertoast: ^3.1.3
   # https://github.com/theyakka/fluro
-  fluro: "^1.5.2"
+  fluro: "^1.5.1"
 
 dev_dependencies: # 开发时使用的库
   flutter_test:

@@ -85,6 +85,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  fluro:
+    dependency: "direct main"
+    description:
+      name: fluro
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.5.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -177,6 +184,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.6.4"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.8.0+1"
   petitparser:
     dependency: transitive
     description:
@@ -251,7 +265,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.14"
+    version: "0.2.11"
   transformer_page_view:
     dependency: transitive
     description:

@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import '../httpUtil.dart';
 
 class HomeApiConfigs {
-  static String homePageContent = '/homePageContent';
   // 商城首页信息。。。。
-  static String homePageSwiper = '/homePageSwiper';
+  static String homePageContent = '/homePageContent';
+  // static String homePageSwiper = '/homePageSwiper';
   // 商城热卖商品
   static String homePageBelowContent = '/homePageBelowContent';
 }
@@ -29,15 +29,15 @@ class HomeApi {
   }
 
   // 获取首页主体部分
-  Future getHomePageContent() async {
-    Map data = {'lon': '111.2131', 'lat': '35.1231'};
-    Response response =
-        await _http.get(HomeApiConfigs.homePageContent, data: data);
-    return response;
-  }
+  // Future getHomePageContent() async {
+  //   Map data = {'lon': '111.2131', 'lat': '35.1231'};
+  //   Response response =
+  //       await _http.get(HomeApiConfigs.homePageContent, data: data);
+  //   return response;
+  // }
 
-  Future getHomePageSwiper() async {
-    Response response = await _http.get(HomeApiConfigs.homePageSwiper);
+  Future getHomePageContent() async {
+    Response response = await _http.get(HomeApiConfigs.homePageContent);
     return response;
   }
 

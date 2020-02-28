@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage>
         title: Text('百姓生活'),
       ),
       body: FutureBuilder(
-        future: HomeApi().getHomePageSwiper(),
+        future: HomeApi().getHomePageContent(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data.runtimeType);
