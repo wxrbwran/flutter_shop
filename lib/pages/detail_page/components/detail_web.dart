@@ -10,6 +10,7 @@ class DetailWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var detail_provider = Provider.of<DetailInfoProvider>(context);
+    // html片段
     var goodsDetail = detail_provider.goodsInfo.data.goodInfo.goodsDetail;
     var isLeft = detail_provider.isLeft;
     // var isRight = detail_provider.isRight;

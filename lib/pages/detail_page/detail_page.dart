@@ -6,6 +6,7 @@ import './components/top_area.dart';
 import './components/detail_explain.dart';
 import './components/detail_tabbar.dart';
 import './components/detail_web.dart';
+import './components/detail_bottom.dart';
 
 import 'dart:convert';
 
@@ -40,16 +41,27 @@ class DetailPage extends StatelessWidget {
           future: getDetailInfo(context),
           builder: (BuildContext context, snapshot) {
             if (snapshot.hasData) {
-              return Container(
-                  child: ListView(
+              // 层叠组件
+              return Stack(
                 children: <Widget>[
-                  // Text('success, $goodsId'),
-                  DetailTopArea(),
-                  DetailExplain(),
-                  DetailTabBar(),
-                  DetailWeb(),
+                  Container(
+                    child: ListView(
+                      children: <Widget>[
+                        // Text('success, $goodsId'),
+                        DetailTopArea(),
+                        DetailExplain(),
+                        DetailTabBar(),
+                        DetailWeb(),
+                      ],
+                    )
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: DetailBottom(),
+                  )
                 ],
-              ));
+              );
             } else {
               return Text('loading');
             }
