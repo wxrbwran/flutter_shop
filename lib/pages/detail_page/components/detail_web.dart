@@ -11,9 +11,18 @@ class DetailWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     var detail_provider = Provider.of<DetailInfoProvider>(context);
     var goodsDetail = detail_provider.goodsInfo.data.goodInfo.goodsDetail;
+    var isLeft = detail_provider.isLeft;
+    // var isRight = detail_provider.isRight;
+    if (isLeft) {
+      return Container(
+        child: Html(
+          data: '<div><h1 style="color:red">H1: left</h1></div>',
+        ),
+      );
+    }
     return Container(
       child: Html(
-        data: goodsDetail,
+        data: '<div><h2 style="color: yellow">H2: right</h2></div>',
       ),
     );
   }
