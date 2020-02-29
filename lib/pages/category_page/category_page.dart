@@ -348,9 +348,7 @@ class _CategoryGoodsListViewState extends State<CategoryGoodsListView> {
                 // height: ScreenUtil().setHeight(980),
                 child: EasyRefresh(
                   header: MaterialHeader(),
-                  footer: MaterialFooter(
-                    
-                  ),
+                  footer: MaterialFooter(),
                   controller: _controller,
                   scrollController: scrollController,
                   child: ListView.builder(

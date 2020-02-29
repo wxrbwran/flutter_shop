@@ -4,12 +4,13 @@ import '../model/category.dart';
 // 混入
 class ChildCategoryProvider with ChangeNotifier {
   List<BxMallSubDto> childCategoryList = [];
-  List get value => childCategoryList;
   int childIndex = 0; //
   String categoryId = '0'; // 大类Id
   String subId = '';
   int page = 1; // 列表页数
   String noMoreText = '';
+ 
+  List get value => childCategoryList;
 
   // 大类切换逻辑
   setChildCategory(List<BxMallSubDto> list, String id) {

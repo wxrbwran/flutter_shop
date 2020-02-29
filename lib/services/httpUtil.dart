@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
+// 是否生产环境
 const isProd = bool.fromEnvironment('dart.vm.product');
 const BASE_URL = isProd ? '' : 'http://rap2.taobao.org:38080/app/mock/245329/';
 

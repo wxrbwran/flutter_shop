@@ -1,29 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/model/detail.dart';
 import 'package:flutter_shop/provider/detail_info.dart';
 import 'package:provider/provider.dart';
+import './components/top_area.dart';
+import './components/detail_explain.dart';
+import './components/detail_tabbar.dart';
+import './components/detail_web.dart';
+
+import 'dart:convert';
 
 class DetailPage extends StatelessWidget {
   final String goodsId;
   const DetailPage(this.goodsId);
 
   @override
-  void initState() {
-  }
+  void initState() {}
 
-  void getDetailInfo(BuildContext context) async {
-    var res = await Provider.of<DetailInfoProvider>(context, listen: false)
+  Future getDetailInfo(BuildContext context) async {
+    await Provider.of<DetailInfoProvider>(context, listen: false)
         .getGoodsInfo(goodsId);
-    print('getDetailInfo => ');
-    print(res);
-    // Provider.of<Counter>(context, listen: false).increment();
+    // print('getDetailInfo => ');
+    return 'success';
   }
 
   @override
   Widget build(BuildContext context) {
     getDetailInfo(context);
-    return Container(
-        child: Center(
-      child: Text('商品id $goodsId'),
-    ));
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('商品详情'),
+      ),
+      body: FutureBuilder(
+          future: getDetailInfo(context),
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.hasData) {
+              return Container(
+                  child: ListView(
+                children: <Widget>[
+                  // Text('success, $goodsId'),
+                  DetailTopArea(),
+                  DetailExplain(),
+                  DetailTabBar(),
+                  DetailWeb(),
+                ],
+              ));
+            } else {
+              return Text('loading');
+            }
+          }),
+    );
   }
 }
