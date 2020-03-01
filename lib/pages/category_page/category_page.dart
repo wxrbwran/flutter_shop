@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_shop/provider/category_goods_list.dart';
-import 'package:flutter_shop/provider/child_category.dart';
+import '../../provider/category_goods_list.dart';
+import '../../provider/child_category.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';

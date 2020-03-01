@@ -2,8 +2,8 @@ import 'package:flutter/material.dart'; // 谷歌样式主题
 import 'package:flutter/cupertino.dart'; // ios样式主题
 import 'package:provider/provider.dart';
 import 'package:fluro/fluro.dart';
-import 'package:flutter_shop/routes/routes.dart';
-import 'package:flutter_shop/routes/application.dart';
+import './routes/routes.dart';
+import './routes/application.dart';
 import './pages/index_page.dart';
 import './provider/counter.dart';
 import './provider/translations.dart';

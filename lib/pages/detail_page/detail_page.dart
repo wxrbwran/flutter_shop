@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/model/detail.dart';
-import 'package:flutter_shop/provider/detail_info.dart';
+import '../../model/detail.dart';
+import '../../provider/detail_info.dart';
 import 'package:provider/provider.dart';
 import './components/top_area.dart';
 import './components/detail_explain.dart';
