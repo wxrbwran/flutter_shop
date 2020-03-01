@@ -7,7 +7,6 @@ import './components/detail_explain.dart';
 import './components/detail_tabbar.dart';
 import './components/detail_web.dart';
 import './components/detail_bottom.dart';
-
 import 'dart:convert';
 
 class DetailPage extends StatelessWidget {

@@ -10,6 +10,7 @@ import './provider/translations.dart';
 import './provider/category_goods_list.dart';
 import './provider/child_category.dart';
 import './provider/detail_info.dart';
+import './provider/cart.dart';
 
 // provider有以下三个特点：
 
@@ -33,6 +34,8 @@ void main() {
           create: (_) => CategoryGoodsListProvider()),
       ChangeNotifierProvider<DetailInfoProvider>(
           create: (_) => DetailInfoProvider()),
+      ChangeNotifierProvider<CartProvider>(
+          create: (_) => CartProvider()),
       ProxyProvider<Counter, Translations>(
         update: (_, counter, __) => Translations(counter.value),
       ),
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
     //-------------------主要代码start
     final router = Router();
     Routes.configureRoutes(router);
-    Application.router=router;
+    Application.router = router;
     //-------------------主要代码end
     return Container(
       child: MaterialApp(

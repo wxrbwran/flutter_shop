@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../../../provider/detail_info.dart';
+import '../../../provider/cart.dart';
 
 class DetailBottom extends StatelessWidget {
   const DetailBottom({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var goodsInfo =
+        Provider.of<DetailInfoProvider>(context).goodsInfo.data.goodInfo;
+    var goodsId = goodsInfo.goodsId;
+    var goodsName = goodsInfo.goodsName;
+    var count = 1;
+    var price = goodsInfo.oriPrice;
+    var images = goodsInfo.image1;
+
     return Container(
       width: ScreenUtil().setWidth(750),
       height: ScreenUtil().setHeight(80),
@@ -29,7 +38,15 @@ class DetailBottom extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async { 
+              Provider.of<CartProvider>(context, listen: false).save(
+                goodsId,
+                goodsName,
+                count,
+                price,
+                images,
+              );
+            },
             child: Container(
               width: ScreenUtil().setWidth(320),
               height: ScreenUtil().setHeight(80),
@@ -45,7 +62,9 @@ class DetailBottom extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              Provider.of<CartProvider>(context, listen: false).remove();
+            },
             child: Container(
               width: ScreenUtil().setWidth(320),
               height: ScreenUtil().setHeight(80),
