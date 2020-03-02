@@ -5,7 +5,7 @@ import '../config/app.dart';
 import './home_page/home_page.dart';
 import './category_page/category_page.dart';
 import './cart_page/cart_page.dart';
-import './member_page.dart';
+import './member_page/member_page.dart';
 import 'package:provider/provider.dart';
 import '../provider/current_index.dart';
 

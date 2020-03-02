@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import '../provider/counter.dart';
 import '../provider/translations.dart';
 
 class MemberPage extends StatelessWidget {
