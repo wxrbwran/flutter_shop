@@ -46,6 +46,10 @@ dependencies: # 生产环境需要使用的库
   flutter_html: ^0.11.1
   # https://pub.dev/packages/shared_preferences
   shared_preferences: 0.5.6+2
+  jpush_flutter:
+    git:
+      url: git://github.com/jpush/jpush-flutter-plugin.git
+      ref: master
 
 dev_dependencies: # 开发时使用的库
   flutter_test:

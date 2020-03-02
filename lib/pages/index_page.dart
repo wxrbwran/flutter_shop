@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:jpush_flutter/jpush_flutter.dart';
 import '../config/app.dart';
 import './home_page/home_page.dart';
 import './category_page/category_page.dart';
@@ -10,7 +11,8 @@ import 'package:provider/provider.dart';
 import '../provider/current_index.dart';
 
 class IndexPage extends StatelessWidget {
-  IndexPage();
+  final jpush;
+  IndexPage(this.jpush);
   final List<BottomNavigationBarItem> bottomTabs = [
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
     BottomNavigationBarItem(
@@ -21,22 +23,17 @@ class IndexPage extends StatelessWidget {
         icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
   ];
 
-  final List<Widget> tabBodies = [
-    HomePage(),
-    CategoryPage(),
-    CartPage(),
-    MemberPage()
-  ];
+  // List<Widget> tabBodies = ;
   @override
   Widget build(BuildContext context) {
+    print(jpush);
     ScreenUtil.init(
       context,
       width: App.DESIGN_WIDTH,
       height: App.DESIGN_HEIGHT,
       allowFontScaling: App.ALLOW_FONT_SCALING_SELF,
     );
-    var current_provider =
-        Provider.of<CurrentIndexProvider>(context);
+    var current_provider = Provider.of<CurrentIndexProvider>(context);
     int currentIndex = current_provider.currentIndex;
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1),
@@ -50,7 +47,12 @@ class IndexPage extends StatelessWidget {
       ),
       body: IndexedStack(
         index: currentIndex,
-        children: tabBodies,
+        children: <Widget>[
+          HomePage(jpush),
+          CategoryPage(),
+          CartPage(),
+          MemberPage()
+        ],
       ),
     );
   }

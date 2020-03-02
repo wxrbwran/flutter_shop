@@ -12,6 +12,9 @@ import './provider/child_category.dart';
 import './provider/detail_info.dart';
 import './provider/cart.dart';
 import './provider/current_index.dart';
+import 'package:flutter/services.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
+
 // provider有以下三个特点：
 
 // 可维护性，provider强制使用单向数据流
@@ -34,8 +37,7 @@ void main() {
           create: (_) => CategoryGoodsListProvider()),
       ChangeNotifierProvider<DetailInfoProvider>(
           create: (_) => DetailInfoProvider()),
-      ChangeNotifierProvider<CartProvider>(
-          create: (_) => CartProvider()),
+      ChangeNotifierProvider<CartProvider>(create: (_) => CartProvider()),
       ChangeNotifierProvider<CurrentIndexProvider>(
           create: (_) => CurrentIndexProvider()),
       ProxyProvider<Counter, Translations>(
@@ -48,8 +50,22 @@ void main() {
   ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String debugLable = 'Unknown';
+  final JPush jpush = new JPush();
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //-------------------主要代码start
@@ -65,7 +81,64 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Colors.pink,
           ),
-          home: IndexPage()),
+          home: IndexPage(jpush)),
     );
+  }
+
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    try {
+      jpush.addEventHandler(
+          onReceiveNotification: (Map<String, dynamic> message) async {
+        print("flutter onReceiveNotification: $message");
+        setState(() {
+          debugLable = "flutter onReceiveNotification: $message";
+        });
+      }, onOpenNotification: (Map<String, dynamic> message) async {
+        print("flutter onOpenNotification: $message");
+        setState(() {
+          debugLable = "flutter onOpenNotification: $message";
+        });
+      }, onReceiveMessage: (Map<String, dynamic> message) async {
+        print("flutter onReceiveMessage: $message");
+        setState(() {
+          debugLable = "flutter onReceiveMessage: $message";
+        });
+      }, onReceiveNotificationAuthorization:
+              (Map<String, dynamic> message) async {
+        print("flutter onReceiveNotificationAuthorization: $message");
+        setState(() {
+          debugLable = "flutter onReceiveNotificationAuthorization: $message";
+        });
+      });
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    jpush.setup(
+      appKey: "e58a32cb3e4469ebf31867e5", //你自己应用的 AppKey
+      channel: "theChannel",
+      production: false,
+      debug: true,
+    );
+    jpush.applyPushAuthority(
+        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
+
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    jpush.getRegistrationID().then((rid) {
+      print("flutter get registration id : $rid");
+      setState(() {
+        debugLable = "flutter getRegistrationID: $rid";
+      });
+    });
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      debugLable = platformVersion;
+    });
   }
 }

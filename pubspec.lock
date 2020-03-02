@@ -177,6 +177,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.4"
+  jpush_flutter:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: c9c135979fdc0561a606cded3b5f38b89d543fcd
+      url: "git://github.com/jpush/jpush-flutter-plugin.git"
+    source: git
+    version: "0.5.2"
   matcher:
     dependency: transitive
     description:
@@ -219,6 +228,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.4.0"
+  platform:
+    dependency: transitive
+    description:
+      name: platform
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.1"
   plugin_platform_interface:
     dependency: transitive
     description:
