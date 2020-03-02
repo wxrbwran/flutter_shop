@@ -6,11 +6,16 @@ import './home_page/home_page.dart';
 import './category_page/category_page.dart';
 import './cart_page/cart_page.dart';
 import './member_page.dart';
-import 'package:provider/provider.dart';
-import '../provider/current_index.dart';
 
-class IndexPage extends StatelessWidget {
-  IndexPage();
+
+class IndexPage extends StatefulWidget {
+  IndexPage({Key key}) : super(key: key);
+
+  @override
+  _IndexPageState createState() => _IndexPageState();
+}
+
+class _IndexPageState extends State<IndexPage> {
   final List<BottomNavigationBarItem> bottomTabs = [
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
     BottomNavigationBarItem(
@@ -21,13 +26,16 @@ class IndexPage extends StatelessWidget {
         icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
   ];
 
-  final List<Widget> tabBodies = [
-    HomePage(),
-    CategoryPage(),
-    CartPage(),
-    MemberPage()
-  ];
+  final List<Widget> tabBodies = [HomePage(), CategoryPage(), CartPage(), MemberPage()];
+  int currentIndex = 0;
+  var currentPage;
   @override
+  void initState() {
+    currentPage = tabBodies[currentIndex]; 
+    super.initState();
+  }
+
+  @override 
   Widget build(BuildContext context) {
     ScreenUtil.init(
       context,
@@ -35,17 +43,17 @@ class IndexPage extends StatelessWidget {
       height: App.DESIGN_HEIGHT,
       allowFontScaling: App.ALLOW_FONT_SCALING_SELF,
     );
-    var current_provider =
-        Provider.of<CurrentIndexProvider>(context);
-    int currentIndex = current_provider.currentIndex;
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
+        currentIndex: currentIndex, 
         items: bottomTabs,
         onTap: (index) {
-          current_provider.changeIndex(index);
+          setState(() {
+            currentIndex = index;
+            currentPage = tabBodies[index];
+          });
         },
       ),
       body: IndexedStack(

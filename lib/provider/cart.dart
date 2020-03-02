@@ -16,7 +16,6 @@ class CartProvider with ChangeNotifier {
     var tmp = cartString == null ? [] : json.decode(cartString.toString());
     List tmpList = (tmp as List).cast();
     bool isHave = false;
-    // int val = 0;
     int length = tmpList.length;
     for (int i = 0; i < length; i++) {
       var item = tmpList[i];
@@ -61,9 +60,9 @@ class CartProvider with ChangeNotifier {
     cartString = prefs.getString('cartInfo');
     cartList = [];
     print('getCartInfo cartString ${cartString}');
-    print('${cartString != null}');
+    // print('${cartString != null}');
     if (cartString != null) {
-      print(1);
+      // print(1);
       allPrice = 0;
       allGoodsCount = 0;
       isAllCheck = true;
@@ -127,6 +126,32 @@ class CartProvider with ChangeNotifier {
     for (int i = 0; i < length; i++) {
       var item = tmpList[i];
       item['isCheck'] = isCheck;
+    }
+    cartString = json.encode(tmpList).toString();
+    prefs.setString('cartInfo', cartString);
+    await getCartInfo();
+  }
+
+  // 商品数量加减
+  addOrReduceAction(var cartItem, String todo) async {
+    // print('cartItem $cartItem');
+    // print('todo $todo');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tmpList = (json.decode(cartString) as List).cast();
+    int length = tmpList.length;
+    for (int i = 0; i < length; i++) {
+      var item = tmpList[i];
+      // print('item  ${item['goodsId']}');
+      // print('cartItem  ${cartItem.goodsId}');
+      if (item['goodsId'] == cartItem.goodsId) {
+        // print('add  ${todo}');
+        if (todo == 'add') {
+          item['count'] = item['count'] + 1;
+        } else if (item['count'] > 1) {
+          item['count'] = item['count'] - 1;
+        }
+      }
     }
     cartString = json.encode(tmpList).toString();
     prefs.setString('cartInfo', cartString);

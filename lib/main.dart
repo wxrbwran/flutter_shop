@@ -11,7 +11,7 @@ import './provider/category_goods_list.dart';
 import './provider/child_category.dart';
 import './provider/detail_info.dart';
 import './provider/cart.dart';
-
+import './provider/current_index.dart';
 // provider有以下三个特点：
 
 // 可维护性，provider强制使用单向数据流
@@ -36,6 +36,8 @@ void main() {
           create: (_) => DetailInfoProvider()),
       ChangeNotifierProvider<CartProvider>(
           create: (_) => CartProvider()),
+      ChangeNotifierProvider<CurrentIndexProvider>(
+          create: (_) => CurrentIndexProvider()),
       ProxyProvider<Counter, Translations>(
         update: (_, counter, __) => Translations(counter.value),
       ),
