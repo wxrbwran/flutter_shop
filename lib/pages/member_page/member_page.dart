@@ -142,17 +142,15 @@ class MemberPage extends StatelessWidget {
   }
 
   Widget _actionList() {
-    // List<String> lists = ['领取优惠券', '已领取优惠券', '地址管理', '客服电话', '关于我们'];
+    List<String> lists = ['领取优惠券', '已领取优惠券', '地址管理', '客服电话', '关于我们'];
+    List<Widget> tiles = [];
+    for(var item in lists) {
+        tiles.add(_myListTile(item));
+    }
     return Container(
       margin: EdgeInsets.only(top: 10),
       child: Column(
-        children: <Widget>[
-          _myListTile('领取优惠券'),
-          _myListTile('已领取优惠券'),
-          _myListTile('地址管理'),
-          _myListTile('客服电话'),
-          _myListTile('关于我们'),
-        ],
+        children: tiles,
       ),
     );
   }
