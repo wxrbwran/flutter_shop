@@ -4,15 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:jpush_flutter/jpush_flutter.dart';
 import '../config/app.dart';
 import './home_page/home_page.dart';
+// import './home_page_text_field.dart';
 import './category_page/category_page.dart';
-import './cart_page/cart_page.dart';
-import './member_page/member_page.dart';
+// import './cart_page/cart_page.dart';
+import 'cart_page_provider.dart';
+// import './member_page/member_page.dart';
+import './member_page.dart';
 import 'package:provider/provider.dart';
 import '../provider/current_index.dart';
 
 class IndexPage extends StatelessWidget {
-  final jpush;
-  IndexPage(this.jpush);
+  IndexPage();
   final List<BottomNavigationBarItem> bottomTabs = [
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
     BottomNavigationBarItem(
@@ -26,7 +28,6 @@ class IndexPage extends StatelessWidget {
   // List<Widget> tabBodies = ;
   @override
   Widget build(BuildContext context) {
-    print(jpush);
     ScreenUtil.init(
       context,
       width: App.DESIGN_WIDTH,
@@ -48,7 +49,7 @@ class IndexPage extends StatelessWidget {
       body: IndexedStack(
         index: currentIndex,
         children: <Widget>[
-          HomePage(jpush),
+          HomePage(),
           CategoryPage(),
           CartPage(),
           MemberPage()

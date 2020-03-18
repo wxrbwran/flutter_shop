@@ -14,16 +14,14 @@ import './components/leader_phone.dart';
 import './components/hot_goods.dart';
 
 class HomePage extends StatefulWidget {
-  final jpush;
-  HomePage(this.jpush);
+  HomePage();
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _HomePageState extends State<HomePage>{
+  //   with AutomaticKeepAliveClientMixin {
+  // bool get wantKeepAlive => true;
   EasyRefreshController _controller = EasyRefreshController();
   ScrollController scrollController = ScrollController();
   String homePageContent = '正在获取数据';
@@ -51,8 +49,8 @@ class _HomePageState extends State<HomePage>
     print('设备像素密度: ${ScreenUtil.pixelRatio}');
     print('设备高: ${ScreenUtil.screenHeight}');
     print('设备宽: ${ScreenUtil.screenWidth}');
-    print('HomePage ${widget.jpush}');
-    var jpush = widget.jpush;
+    // print('HomePage ${widget.jpush}');
+    // var jpush = widget.jpush;
     return Scaffold(
         appBar: AppBar(
           title: Text('百姓生活'),
@@ -99,7 +97,7 @@ class _HomePageState extends State<HomePage>
                         // 此库有问题，暂时屏蔽。
                         // SwiperDIY(swiperList: swiper),
                         TopNavigator(navList: nav),
-                        AdBanner(adPicUrl: adPicUrl, jpush: jpush),
+                        AdBanner(adPicUrl: adPicUrl),
                         LeaderPhone(avatar: avatar, phone: phone),
                         Recommend(
                           recommendList: recommend,

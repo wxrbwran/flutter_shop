@@ -5,8 +5,7 @@ import 'package:jpush_flutter/jpush_flutter.dart';
 
 class AdBanner extends StatelessWidget {
   final String adPicUrl;
-  final jpush;
-  AdBanner({Key key, this.adPicUrl, this.jpush}) : super(key: key);
+  AdBanner({Key key, this.adPicUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class AdBanner extends StatelessWidget {
       width: ScreenUtil().setWidth(750),
       child: InkWell(
         onTap: () async {
-          print(' AdBanner ${this.jpush}');
+          print(' AdBanner');
           // 三秒后出发本地推送
           var fireDate = DateTime.fromMillisecondsSinceEpoch(
               DateTime.now().millisecondsSinceEpoch + 3000);
@@ -29,7 +28,7 @@ class AdBanner extends StatelessWidget {
               subtitle: 'fasf',
               badge: 5,
               extra: {"fa": "0"});
-          jpush.sendLocalNotification(localNotification);
+          // jpush.sendLocalNotification(localNotification);
         },
         child: Image.network(this.adPicUrl, fit: BoxFit.fitWidth),
       ),

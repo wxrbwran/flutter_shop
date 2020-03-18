@@ -68,11 +68,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //-------------------主要代码start
+    // fluro-------------------主要代码start
     final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
-    //-------------------主要代码end
+    // fluro -------------------主要代码end
     return Container(
       child: MaterialApp(
           title: '百姓生活+',
@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             primaryColor: Colors.pink,
           ),
-          home: IndexPage(jpush)),
+          home: IndexPage()),
     );
   }
 

@@ -13,6 +13,6 @@ class Routes{
     );
 
     router.define(detailsPage,handler:detailHander);
+    // ...
   }
-
 }

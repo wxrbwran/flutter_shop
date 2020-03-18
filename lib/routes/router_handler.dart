@@ -10,3 +10,4 @@ Handler detailHander =Handler(
     return DetailPage(goodsId);
   }
 );
+// ... handler

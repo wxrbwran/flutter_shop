@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../services/api/test.dart';
+
 const isProd = bool.fromEnvironment('dart.vm.product');
 
 class HomePage extends StatefulWidget {
@@ -17,14 +19,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Container(
+          width: ScreenUtil().setWidth(375),
+          height: ScreenUtil().setHeight(800),
           child: Column(
             children: <Widget>[
               TextField(
                 controller: typeController,
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(28)
+                ),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10),
                   labelText: '类型',
                   helperText: '请输入类型',
+                  
                 ),
                 autofocus: false,
               ),

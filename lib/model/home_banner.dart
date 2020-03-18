@@ -7,12 +7,15 @@ class HomeBannerEntity {
 
   factory HomeBannerEntity.fromJson(Map<String, dynamic> json) {
     return HomeBannerEntity(
-      data: json['data'] != null ? (json['data'] as List).map((i) => HomeBannerDetail.fromJson(i)).toList() : null,
+      data: json['data'] != null
+          ? (json['data'] as List)
+              .map((i) => HomeBannerDetail.fromJson(i))
+              .toList()
+          : null,
       errorCode: json['errorCode'],
       errorMsg: json['errorMsg'],
     );
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['errorCode'] = this.errorCode;
@@ -34,7 +37,15 @@ class HomeBannerDetail {
   int type;
   String url;
 
-  HomeBannerDetail({this.desc, this.id, this.imagePath, this.isVisible, this.order, this.title, this.type, this.url});
+  HomeBannerDetail(
+      {this.desc,
+      this.id,
+      this.imagePath,
+      this.isVisible,
+      this.order,
+      this.title,
+      this.type,
+      this.url});
 
   factory HomeBannerDetail.fromJson(Map<String, dynamic> json) {
     return HomeBannerDetail(

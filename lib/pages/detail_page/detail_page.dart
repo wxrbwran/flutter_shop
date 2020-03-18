@@ -13,9 +13,6 @@ class DetailPage extends StatelessWidget {
   final String goodsId;
   const DetailPage(this.goodsId);
 
-  @override
-  void initState() {}
-
   Future getDetailInfo(BuildContext context) async {
     await Provider.of<DetailInfoProvider>(context, listen: false)
         .getGoodsInfo(goodsId);

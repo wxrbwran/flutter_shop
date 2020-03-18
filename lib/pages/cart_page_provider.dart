@@ -17,7 +17,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     // 使用方法1
-    // final counter = Provider.of<Counter>(context);
+    final counter = Provider.of<Counter>(context);
     final translations = Provider.of<Translations>(context);
     return Scaffold(
       appBar: AppBar(
@@ -29,9 +29,9 @@ class _CartPageState extends State<CartPage> {
             children: <Widget>[
               Text('${translations.title}'),
               // // 使用方法2
-              Consumer<Counter>(
-                  builder: (context, counter, _) => Text('${counter.value}')),
-              // Text('${counter.value}'),
+              // Consumer<Counter>(
+              //     builder: (context, counter, _) => Text('${counter.value}')),
+              Text('${counter.value}'),
               RaisedButton(
                 onPressed: () {
                   // 不需要监听改变（listen: false 不会重新调用build）
